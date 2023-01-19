@@ -17,15 +17,21 @@ class UserStatsController extends Controller
 
     public function __invoke(Request $request)
     {
-        $result = $this->userStatsService->getStatsService($request);
-
+        $data = $this->userStatsService->getStatsService($request);
 
        return  response()->json(
             [
             "error" => false,
-            "data" => $result,
+            "data" => [
+                'full_name' => "{ $data->first_name } { $data->last_name } ",
+                'total_views' => $data->views,
+                'total_clicks' => $data->clicks,
+                'total_conversions' =>  $data->conversions,
+                'cr' => round(($data->conversions / $data->clicks) * 100,2),
+                'last_date' => $data->date,
+            ],
             "code" => 200
-                         ]
+                 ]
         );
     }
 }
