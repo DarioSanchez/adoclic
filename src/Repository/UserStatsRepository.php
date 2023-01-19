@@ -10,6 +10,7 @@ class UserStatsRepository
 
     public function getStats($payload)
     {
+
         $dateFrom = $payload->dateFrom;
         $dateTo = $payload->dateTo;
         $totalClicks = $payload->totalClicks;

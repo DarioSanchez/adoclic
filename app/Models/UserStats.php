@@ -26,7 +26,8 @@ class UserStats extends Model
     public static function getStats( $dateFrom, $dateTo, $totalClicks)
     {
        return self::Join('users as u','user_stats.user_id', "=", "u.id")
-           ->whereBetween('date', ['2022-10-01', '2022-10-15'])
+           ->whereBetween('date', [$dateFrom, $dateTo])
+           ->where('clicks', ">=", $totalClicks)
            ->get();
     }
 
